@@ -19,7 +19,7 @@ namespace CRMDev.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] CreateContactModel contact)
+        public IActionResult Post([FromBody] CreateContactModel contact)
         {
             return Ok();
         }
