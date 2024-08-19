@@ -7,59 +7,76 @@ namespace CRMDev.Infrastructure.Persistence
     {
         public CRMDevDbContext()
         {
+
+            FieldOrIndustries = new List<FieldOrIndustry>
+            {
+                new FieldOrIndustry(fieldName: "sales"),
+                new FieldOrIndustry(fieldName: "marketing"),
+                new FieldOrIndustry(fieldName: "information technology"),
+                new FieldOrIndustry(fieldName: "healthcare"),
+                new FieldOrIndustry(fieldName: "finance"),
+                new FieldOrIndustry(fieldName: "education"),
+                new FieldOrIndustry(fieldName: "manufacturing"),
+                new FieldOrIndustry(fieldName: "construction"),
+                new FieldOrIndustry(fieldName: "retail"),
+                new FieldOrIndustry(fieldName: "hospitality"),
+                new FieldOrIndustry(fieldName: "legal"),
+                new FieldOrIndustry(fieldName: "human resources")
+            };
+
+            var emptyFieldOrIndustry = new FieldOrIndustry("");
+
             // Initialize contacts
             Contacts = new List<Contact>
             {
+                
+
                 new Contact(
                     name: "John Doe",
                     email: "john.doe@example.com",
                     phone: "555-1234",
                     cellPhone: "555-6789",
-                    fieldOrIndustry: "Sales",
+                    fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "sales") ?? emptyFieldOrIndustry,
                     position: "Manager",
-                    address: "123 Elm Street, Springfield, IL",
-                    notes: "Interested in new CRM system"
+                    address: "123 Elm Street, Springfield, IL"
                 ),
                 new Contact(
                     name: "Jane Smith",
                     email: "jane.smith@example.com",
                     phone: "555-5678",
                     cellPhone: "555-9876",
-                    fieldOrIndustry: "Marketing",
+                    fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "marketing") ?? emptyFieldOrIndustry,
                     position: "Coordinator",
-                    address: "456 Oak Avenue, Springfield, IL",
-                    notes: "Needs follow-up on marketing automation tools"
+                    address: "456 Oak Avenue, Springfield, IL"
                 ),
                 new Contact(
                     name: "Alice Johnson",
                     email: "alice.johnson@example.com",
                     phone: "555-3456",
                     cellPhone: "555-6543",
-                    fieldOrIndustry: "HR",
+                    fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "hospitality") ?? emptyFieldOrIndustry,
                     position: "Director",
-                    address: "789 Pine Road, Springfield, IL",
-                    notes: "Looking for employee training solutions"
+                    address: "789 Pine Road, Springfield, IL"
                 ),
                 new Contact(
                     name: "Bob Brown",
                     email: "bob.brown@example.com",
                     phone: "555-8765",
                     cellPhone: "555-4321",
-                    fieldOrIndustry: "IT",
+                    fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "finance") ?? emptyFieldOrIndustry,
                     position: "Tech Lead",
-                    address: "101 Maple Lane, Springfield, IL",
-                    notes: "Interested in customer feedback systems"
+                    address: "101 Maple Lane, Springfield, IL"
                 ),
                 new Contact(
                     name: "Carol White",
                     email: "carol.white@example.com",
                     phone: "555-2468",
                     cellPhone: "555-8642",
-                    fieldOrIndustry: "Finance",
+                    fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "education") ?? emptyFieldOrIndustry,
                     position: "Account Manager",
-                    address: "202 Birch Blvd, Springfield, IL",
-                    notes: "Needs information on budgeting tools")
-            };
+                    address: "202 Birch Blvd, Springfield, IL"
+                    )
+            }; 
 
             Opportunities = new List<Opportunity>
         {
@@ -123,5 +140,7 @@ namespace CRMDev.Infrastructure.Persistence
 
         public ICollection<Contact> Contacts { get; set; }
         public ICollection<Opportunity> Opportunities { get; set; }
+
+        public ICollection<FieldOrIndustry> FieldOrIndustries { get; set; }
     }
 }
