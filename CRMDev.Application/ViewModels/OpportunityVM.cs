@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CRMDev.Application.ViewModels
+﻿namespace CRMDev.Application.ViewModels
 {
     public class OpportunityVM(int id, string title, string description, decimal estimative)
     {
