@@ -9,6 +9,7 @@ namespace CRMDev.Application.Services.Interfaces
         OpportunityDetailVM GetOne(int id);
         OpportunityDetailVM Post(CreateOpportunityInputModel opportunity);
         OpportunityDetailVM Put(EditOpportunityInputModel opportunity);
+        OpportunityDetailVM CompleteTask(int id);
         void Delete(int id);
     }
 }

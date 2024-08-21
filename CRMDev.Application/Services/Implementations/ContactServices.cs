@@ -4,7 +4,7 @@ using CRMDev.Application.ViewModels;
 
 namespace CRMDev.Application.Services.Implementations
 {
-    internal class ContactServices : IContactServices
+    public class ContactServices : IContactServices
     {
         public void Delete(int id)
         {
