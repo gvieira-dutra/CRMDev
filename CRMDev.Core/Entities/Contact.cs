@@ -10,5 +10,10 @@
         public string Position { get; private set; } = position;
         public string Address { get; private set; } = address;
         public List<Note> Notes { get; private set; }
+
+        public void AddNote(Note note)
+        {
+            Notes.Add(note ?? throw new ArgumentNullException(nameof(note)));
+        }
     }
 }
