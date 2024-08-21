@@ -1,4 +1,4 @@
-﻿using CRMDev.Core.Enums;
+﻿using CRMDev.Core.Entities;
 
 namespace CRMDev.Application.InputModels
 {
