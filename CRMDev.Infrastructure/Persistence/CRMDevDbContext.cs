@@ -87,9 +87,8 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 15000.00m,
                 scope: "Full system implementation including training and support.",
                 supportIncluded: true,
-                stage: Stage.Connected,
-                contactId: 1,
-                contact: Contacts.ElementAt(0) // John Doe
+                status: Status.Open,
+                contactId: 1
             ),
             new Opportunity(
                 title: "Website Redesign",
@@ -98,9 +97,8 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 8000.00m,
                 scope: "Redesign homepage and key landing pages.",
                 supportIncluded: false,
-                stage: Stage.SentProposition,
-                contactId: 2,
-                contact: Contacts.ElementAt(1) // Jane Smith
+                status: Status.Open,
+                contactId: 2
             ),
             new Opportunity(
                 title: "Marketing Automation Tools",
@@ -109,9 +107,8 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 20000.00m,
                 scope: "Tool integration, setup, and campaign training.",
                 supportIncluded: true,
-                stage: Stage.WaitingSignature,
-                contactId: 1,
-                contact: Contacts.ElementAt(0) // John Doe
+                status: Status.Open,
+                contactId: 1
             ),
             new Opportunity(
                 title: "Employee Training Program",
@@ -120,9 +117,8 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 5000.00m,
                 scope: "Training for sales and support teams.",
                 supportIncluded: true,
-                stage: Stage.MeetingScheduled,
-                contactId: 3,
-                contact: Contacts.ElementAt(2) // Alice Johnson
+                status: Status.Open,
+                contactId: 3
             ),
             new Opportunity(
                 title: "Customer Feedback System",
@@ -131,9 +127,8 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 12000.00m,
                 scope: "System design, development, and deployment.",
                 supportIncluded: false,
-                stage: Stage.PreQualified,
-                contactId: 4,
-                contact: Contacts.ElementAt(3) // Bob Brown
+                status: Status.Open,
+                contactId: 4
             )
         };
         }
