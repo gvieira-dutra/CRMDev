@@ -11,8 +11,8 @@ namespace CRMDev.Application.ViewModels
         public decimal Estimative { get; private set; } = estimative;
         public string Scope { get; private set; } = scope;
         public bool SupportIncluded { get; private set; } = supportIncluded;
-        public Status Status { get; private set; } = status;
-        public ReasonForLostDeal ReasonForLostDeal { get; private set; } = reasonForLostDeal;
+        public string Status { get; private set; } = status.ToString();
+        public string ReasonForLostDeal { get; private set; } = reasonForLostDeal.ToString();
         public int ContactId { get; private set; } = contactId;
         public string CurrStage { get; private set; } = currStage;
         public string CurrTask { get; private set; } = currTask;

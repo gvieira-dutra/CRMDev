@@ -4,7 +4,7 @@ namespace CRMDev.Core.Entities
 {
     public class Opportunity: BaseClass
     {
-        public Opportunity(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded, Status status, int contactId)
+        public Opportunity(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded, int contactId)
         {
             Title = title;
             Description = description;
@@ -12,12 +12,22 @@ namespace CRMDev.Core.Entities
             Estimative = estimative;
             Scope = scope;
             SupportIncluded = supportIncluded;
-            Status = status;
+            Status = Status.Open;
             ReasonForLostDeal = ReasonForLostDeal.NA;
             ContactId = contactId;
             Stages = CreateDefaultStages();
             CurrentStageTracker = 0;
             CurrentTaskTracker = 0;
+        }
+
+        public Opportunity(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded )
+        {
+            Title = title;
+            Description = description;
+            DeliveryEstimate = deliveryEstimate;
+            Estimative = estimative;
+            Scope = scope;
+            SupportIncluded = supportIncluded;
         }
 
         public string Title { get; private set; }
@@ -82,15 +92,13 @@ namespace CRMDev.Core.Entities
                 };
                }
 
-
-
         public void AdvanceTask()
         {
             Stages[CurrentStageTracker]
                 .Tasks[CurrentTaskTracker]
                 .MarkAsCompleted();
 
-            if(CurrentTaskTracker == 2)
+            if(CurrentTaskTracker == Stages[CurrentStageTracker].Tasks.Count())
             {
                 CurrentStageTracker += 1;
                 CurrentTaskTracker = 0;
@@ -101,6 +109,32 @@ namespace CRMDev.Core.Entities
             }
         }
 
+        public void SetStatusClosed()
+        {
+            Status = Status.Closed;
+        }
+
+        public void SetStatusLost(ReasonForLostDeal reason)
+        {
+            Status = Status.Lost;
+            ReasonForLostDeal = reason;
+        }
+
+        public void EditOpportunity(Opportunity oppNewInfo)
+        {
+            Title = string.IsNullOrEmpty(oppNewInfo.Title) ? Title : oppNewInfo.Title;
+           
+            Description = string.IsNullOrEmpty(oppNewInfo.Description) ? Description : oppNewInfo.Description;
+            
+            DeliveryEstimate = oppNewInfo.DeliveryEstimate == default ? DeliveryEstimate : oppNewInfo.DeliveryEstimate;
+            
+            Estimative = oppNewInfo.Estimative == default ? Estimative : oppNewInfo.Estimative;
+            
+            Scope = string.IsNullOrEmpty(oppNewInfo.Scope) ? Scope : oppNewInfo.Scope;
+            
+            SupportIncluded = oppNewInfo.SupportIncluded ? SupportIncluded : oppNewInfo.SupportIncluded ;
+
+        }
     }
 
 }

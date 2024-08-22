@@ -1,5 +1,6 @@
-﻿using CRMDev.API.Models;
+﻿using CRMDev.Application.InputModels;
 using CRMDev.Application.Services.Interfaces;
+using CRMDev.Core.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRMDev.API.Controllers
@@ -28,28 +29,34 @@ namespace CRMDev.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateOpportunityModel createOpportunityModel)
+        public IActionResult Post([FromBody] CreateOpportunityInputModel createOpportunityModel)
         {
-            return Ok();
+            return Ok(_services.Post(createOpportunityModel));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] EditOpportunityModel editOpportunityModel)
+        [HttpPut("edit/{id}")]
+        public IActionResult Put(int id, [FromBody] EditOpportunityInputModel opportunityNewInfo)
         {
-            return Ok();
+            return Ok(_services.Put(id, opportunityNewInfo));
         }
 
-        [HttpPut("complete-task-{id}")]
-        public IActionResult CompleteTask(int id)
+        [HttpPut("complete-current-task/{opportunityId}")]
+        public IActionResult CompleteCurrentTask(int opportunityId)
         {
-            var opportunity = _services.CompleteTask(id);
+            var opportunity = _services.CompleteCurrentTask(opportunityId);
             return Ok(opportunity);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [HttpPut("set-status-closed{id}")]
+        public IActionResult SetStatusClosed(int id)
         {
-            return NoContent();
+            return Ok(_services.SetStatusClosed(id));
+        }
+
+        [HttpPut("set-status-lost/{opportunityId}")]
+        public IActionResult SetStatusLost(int id, [FromBody] ReasonForLostDeal reason)
+        {
+            return Ok(_services.SetStatusLost(id, reason));
         }
 
     }

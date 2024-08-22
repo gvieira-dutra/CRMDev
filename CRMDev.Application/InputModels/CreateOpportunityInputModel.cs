@@ -1,8 +1,6 @@
-﻿using CRMDev.Core.Entities;
-
-namespace CRMDev.Application.InputModels
+﻿namespace CRMDev.Application.InputModels
 {
-    public class CreateOpportunityInputModel(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded, Stage stage, int contactId)
+    public class CreateOpportunityInputModel(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded, int contactId)
     {
         public string Title { get; private set; } = title;
         public string Description { get; private set; } = description;

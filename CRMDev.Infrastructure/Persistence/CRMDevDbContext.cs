@@ -10,27 +10,26 @@ namespace CRMDev.Infrastructure.Persistence
 
             FieldOrIndustries = new List<FieldOrIndustry>
             {
-                new FieldOrIndustry(fieldName: "sales"),
-                new FieldOrIndustry(fieldName: "marketing"),
-                new FieldOrIndustry(fieldName: "information technology"),
-                new FieldOrIndustry(fieldName: "healthcare"),
-                new FieldOrIndustry(fieldName: "finance"),
-                new FieldOrIndustry(fieldName: "education"),
-                new FieldOrIndustry(fieldName: "manufacturing"),
-                new FieldOrIndustry(fieldName: "construction"),
-                new FieldOrIndustry(fieldName: "retail"),
-                new FieldOrIndustry(fieldName: "hospitality"),
-                new FieldOrIndustry(fieldName: "legal"),
-                new FieldOrIndustry(fieldName: "human resources")
+                new FieldOrIndustry(fieldName: "sales", descrip: "People who sell products or services"),
+                new FieldOrIndustry(fieldName: "marketing", descrip: "Experts in promoting and advertising"),
+                new FieldOrIndustry(fieldName: "information technology", descrip: "Professionals in computer systems and software"),
+                new FieldOrIndustry(fieldName: "healthcare", descrip: "Providers of medical and health services"),
+                new FieldOrIndustry(fieldName: "finance", descrip: "Experts in managing money and investments"),
+                new FieldOrIndustry(fieldName: "education", descrip: "Professionals in teaching and learning"),
+                new FieldOrIndustry(fieldName: "manufacturing", descrip: "Involved in the production of goods"),
+                new FieldOrIndustry(fieldName: "construction", descrip: "Experts in building and infrastructure development"),
+                new FieldOrIndustry(fieldName: "retail", descrip: "Involved in selling products to consumers"),
+                new FieldOrIndustry(fieldName: "hospitality", descrip: "Providers of services like lodging and food"),
+                new FieldOrIndustry(fieldName: "legal", descrip: "Experts in law and legal services"),
+                new FieldOrIndustry(fieldName: "human resources", descrip: "Professionals managing employee relations")
+
             };
 
-            var emptyFieldOrIndustry = new FieldOrIndustry("");
+            var emptyFieldOrIndustry = new FieldOrIndustry("", "");
 
             // Initialize contacts
             Contacts = new List<Contact>
-            {
-                
-
+            {             
                 new Contact(
                     name: "John Doe",
                     email: "john.doe@example.com",
@@ -38,7 +37,8 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-6789",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "sales") ?? emptyFieldOrIndustry,
                     position: "Manager",
-                    address: "123 Elm Street, Springfield, IL"
+                    address: "123 Elm Street, Springfield, IL",
+                    new Note("Note 1")
                 ),
                 new Contact(
                     name: "Jane Smith",
@@ -47,7 +47,8 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-9876",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "marketing") ?? emptyFieldOrIndustry,
                     position: "Coordinator",
-                    address: "456 Oak Avenue, Springfield, IL"
+                    address: "456 Oak Avenue, Springfield, IL",
+                    new Note("Note 2")
                 ),
                 new Contact(
                     name: "Alice Johnson",
@@ -56,7 +57,8 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-6543",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "hospitality") ?? emptyFieldOrIndustry,
                     position: "Director",
-                    address: "789 Pine Road, Springfield, IL"
+                    address: "789 Pine Road, Springfield, IL",
+                    new Note("Note 3")
                 ),
                 new Contact(
                     name: "Bob Brown",
@@ -65,7 +67,8 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-4321",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "finance") ?? emptyFieldOrIndustry,
                     position: "Tech Lead",
-                    address: "101 Maple Lane, Springfield, IL"
+                    address: "101 Maple Lane, Springfield, IL",
+                    new Note("Note 4")
                 ),
                 new Contact(
                     name: "Carol White",
@@ -74,7 +77,8 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-8642",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "education") ?? emptyFieldOrIndustry,
                     position: "Account Manager",
-                    address: "202 Birch Blvd, Springfield, IL"
+                    address: "202 Birch Blvd, Springfield, IL",
+                    new Note("Note 5")
                     )
             }; 
 
@@ -87,7 +91,6 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 15000.00m,
                 scope: "Full system implementation including training and support.",
                 supportIncluded: true,
-                status: Status.Open,
                 contactId: 1
             ),
             new Opportunity(
@@ -97,7 +100,6 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 8000.00m,
                 scope: "Redesign homepage and key landing pages.",
                 supportIncluded: false,
-                status: Status.Open,
                 contactId: 2
             ),
             new Opportunity(
@@ -107,7 +109,6 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 20000.00m,
                 scope: "Tool integration, setup, and campaign training.",
                 supportIncluded: true,
-                status: Status.Open,
                 contactId: 1
             ),
             new Opportunity(
@@ -117,7 +118,6 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 5000.00m,
                 scope: "Training for sales and support teams.",
                 supportIncluded: true,
-                status: Status.Open,
                 contactId: 3
             ),
             new Opportunity(
@@ -127,7 +127,6 @@ namespace CRMDev.Infrastructure.Persistence
                 estimative: 12000.00m,
                 scope: "System design, development, and deployment.",
                 supportIncluded: false,
-                status: Status.Open,
                 contactId: 4
             )
         };

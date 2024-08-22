@@ -1,5 +1,6 @@
 ﻿using CRMDev.Application.InputModels;
 using CRMDev.Application.ViewModels;
+using CRMDev.Core.Enums;
 
 namespace CRMDev.Application.Services.Interfaces
 {
@@ -8,8 +9,9 @@ namespace CRMDev.Application.Services.Interfaces
         List<OpportunityVM> GetAll(string query);
         OpportunityDetailVM GetOne(int id);
         OpportunityDetailVM Post(CreateOpportunityInputModel opportunity);
-        OpportunityDetailVM Put(EditOpportunityInputModel opportunity);
-        OpportunityDetailVM CompleteTask(int id);
-        void Delete(int id);
+        OpportunityDetailVM Put(int id, EditOpportunityInputModel opportunity);
+        OpportunityDetailVM CompleteCurrentTask(int id);
+        OpportunityDetailVM SetStatusClosed(int id);
+        public OpportunityDetailVM SetStatusLost(int id, ReasonForLostDeal reason);
     }
 }
