@@ -1,4 +1,5 @@
-﻿using CRMDev.API.Models;
+﻿using CRMDev.Application.InputModels;
+using CRMDev.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRMDev.API.Controllers
@@ -6,33 +7,43 @@ namespace CRMDev.API.Controllers
     [Route("api/contacts")]
     public class ContactController : ControllerBase
     {
+        private readonly IContactServices _services;
+
+        public ContactController(IContactServices services)
+        {
+            _services = services;
+        }
+
         [HttpGet]
         public IActionResult GetAll(string query)
         {
-            return Ok();
+            var contacts = _services.GetAll(query);
+
+            return Ok(contacts);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
-            return Ok();
+            return Ok(_services.GetOne(id));
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] CreateContactModel contact)
+        [HttpPost("new")]
+        public IActionResult Post([FromBody] ContactCreateInputModel contact)
         {
-            return Ok();
+            return Ok(_services.Post(contact));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] EditContactModel newInfo)
+        public IActionResult Put(int id, [FromBody] ContactEditInputModel newInfo)
         {
-            return Ok();
+            return Ok(_services.Put(id, newInfo));
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            _services.Delete(id);
             return NoContent();
         }
     }

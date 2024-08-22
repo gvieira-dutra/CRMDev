@@ -8,7 +8,7 @@ namespace CRMDev.Application.Services.Interfaces
         List<ContactVM> GetAll(string query);
         ContactDetailVM GetOne(int id);
         ContactDetailVM Post(ContactCreateInputModel contactCreateInputModel);
-        ContactDetailVM Put(ContactEditInputModel contactEditInputModel);
+        ContactDetailVM Put(int id, ContactEditInputModel contactEditInputModel);
         void Delete(int id);
     }
 }
