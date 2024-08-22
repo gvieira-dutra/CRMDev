@@ -2,20 +2,6 @@
 {
     public class Contact : BaseClass
     {
-        public Contact(string name, string email, string phone, string cellPhone, FieldOrIndustry fieldOrIndustry, string position, string address, Note note)
-        {
-            Name = name;
-            Email = email;
-            Phone = phone;
-            CellPhone = cellPhone ?? "N/A";
-            FieldOrIndustry = fieldOrIndustry;
-            Position = position;
-            Address = address;
-            IsActive = true;
-            Notes = new List<Note>();
-            this.AddContactNote(note);
-        }
-
         public Contact(string name, string email, string phone, string cellPhone, FieldOrIndustry fieldOrIndustry, string position, string address)
         {
             Name = name;
@@ -25,6 +11,8 @@
             FieldOrIndustry = fieldOrIndustry;
             Position = position;
             Address = address;
+            IsActive = true;
+            Notes = new List<ContactNote>();
         }
 
         public string Name { get; private set; }
@@ -36,9 +24,10 @@
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
         public string ContactNotesSummary { get; private set; }
-        public List<Note> Notes { get; private set; }
+        public List<ContactNote> Notes { get; private set; }
+        public int FieldOrIndustryId { get; private set; }
 
-        public void AddContactNote(Note note)
+        public void AddContactNote(ContactNote note)
         {
             Notes.Add(note ?? throw new ArgumentNullException(nameof(note)));
         }
@@ -58,6 +47,11 @@
             Position = string.IsNullOrEmpty(newContactInfo.Position) ? Position : newContactInfo.Position;
             Address = string.IsNullOrEmpty(newContactInfo.Address) ? Address : newContactInfo.Address;
 
+        }
+
+        public void CreateContactNotesSummary()
+        {
+            //ContactNotesSummary
         }
     }
 }

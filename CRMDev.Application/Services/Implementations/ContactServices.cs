@@ -55,7 +55,7 @@ namespace CRMDev.Application.Services.Implementations
 
         public ContactDetailVM Post(ContactCreateInputModel newContact)
         {
-            var contact = new Contact(newContact.Name, newContact.Email, newContact.Phone, newContact.CellPhone, newContact.FieldOrIndustry, newContact.Position, newContact.Address, newContact.Note);
+            var contact = new Contact(newContact.Name, newContact.Email, newContact.Phone, newContact.CellPhone, newContact.FieldOrIndustry, newContact.Position, newContact.Address);
 
             _dbContext.Contacts
                 .Add(contact);

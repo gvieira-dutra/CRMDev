@@ -1,8 +1,12 @@
 ﻿namespace CRMDev.Core.Entities
 {
-    public class Note(string content) : BaseClass
+    public class BaseNote : BaseClass
     {
-        public string Content { get; private set; } = content;
+        protected BaseNote(string content)
+        {
+            Content = content;
+        }
+        public string Content { get; private set; }
 
         public void EditNoteContent(string newContent)
         {

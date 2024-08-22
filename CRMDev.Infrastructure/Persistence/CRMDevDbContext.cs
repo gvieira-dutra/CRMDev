@@ -37,8 +37,7 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-6789",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "sales") ?? emptyFieldOrIndustry,
                     position: "Manager",
-                    address: "123 Elm Street, Springfield, IL",
-                    new Note("Note 1")
+                    address: "123 Elm Street, Springfield, IL"
                 ),
                 new Contact(
                     name: "Jane Smith",
@@ -47,8 +46,7 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-9876",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "marketing") ?? emptyFieldOrIndustry,
                     position: "Coordinator",
-                    address: "456 Oak Avenue, Springfield, IL",
-                    new Note("Note 2")
+                    address: "456 Oak Avenue, Springfield, IL"
                 ),
                 new Contact(
                     name: "Alice Johnson",
@@ -57,8 +55,7 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-6543",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "hospitality") ?? emptyFieldOrIndustry,
                     position: "Director",
-                    address: "789 Pine Road, Springfield, IL",
-                    new Note("Note 3")
+                    address: "789 Pine Road, Springfield, IL"
                 ),
                 new Contact(
                     name: "Bob Brown",
@@ -67,8 +64,7 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-4321",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "finance") ?? emptyFieldOrIndustry,
                     position: "Tech Lead",
-                    address: "101 Maple Lane, Springfield, IL",
-                    new Note("Note 4")
+                    address: "101 Maple Lane, Springfield, IL"
                 ),
                 new Contact(
                     name: "Carol White",
@@ -77,8 +73,7 @@ namespace CRMDev.Infrastructure.Persistence
                     cellPhone: "555-8642",
                     fieldOrIndustry: FieldOrIndustries.FirstOrDefault(f => f.FieldName == "education") ?? emptyFieldOrIndustry,
                     position: "Account Manager",
-                    address: "202 Birch Blvd, Springfield, IL",
-                    new Note("Note 5")
+                    address: "202 Birch Blvd, Springfield, IL"
                     )
             }; 
 

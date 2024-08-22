@@ -43,7 +43,7 @@ namespace CRMDev.Application.Services.Implementations
 
         }
 
-        public Contact EditContactNote(int contactId, int noteId, Note newNote)
+        public Contact EditContactNote(int contactId, int noteId, BaseNote newNote)
         {
             var contact = _dbContext.Contacts
                 .FirstOrDefault(c => c.Id == contactId);
@@ -56,7 +56,7 @@ namespace CRMDev.Application.Services.Implementations
             return contact;
         }
 
-        public Opportunity EditTaskNote(int OpportunityId, int TaskId, int noteId, Note newNote)
+        public Opportunity EditTaskNote(int OpportunityId, int TaskId, int noteId, BaseNote newNote)
         {
             var opp = _dbContext.Opportunities
                 .FirstOrDefault(o => o.Id == OpportunityId);
@@ -78,19 +78,23 @@ namespace CRMDev.Application.Services.Implementations
             var contact = _dbContext.Contacts
                 .FirstOrDefault(c => c.Id == id);
 
-            var newNote = new Note(note);
+            var newNote = new ContactNote(contact, note);
             
             contact?.AddContactNote(newNote);
 
             return contact;
         }
 
-        public Opportunity PostCurrentTaskNote(int opportunityId, Note newNote)
+        public Opportunity PostCurrentTaskNote(int opportunityId, string newNote)
         {
             var opportunity = _dbContext.Opportunities
                 .FirstOrDefault(o => o.Id == opportunityId);
 
-            opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].AddTaskNote(newNote);
+            var currTask = opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker];
+
+            var note = new TaskNote(currTask, newNote);
+
+            currTask.AddTaskNote(note);
 
             return opportunity;
         }

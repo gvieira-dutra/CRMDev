@@ -21,19 +21,19 @@ namespace CRMDev.API.Controllers
         }
 
         [HttpPost("current-task/{opportunityId}")]
-        public IActionResult PostCurrentTaskNote(int opportunityId, [FromBody] Note newNote)
+        public IActionResult PostCurrentTaskNote(int opportunityId, [FromBody] string newNote)
         {
             return Ok(_service.PostCurrentTaskNote(opportunityId, newNote));
         }
 
         [HttpPut("edit-contact-note/{ContactId}/{NoteId}")]
-        public IActionResult EditContactNote(int ContactId, int NoteId, [FromBody] Note newNote)
+        public IActionResult EditContactNote(int ContactId, int NoteId, [FromBody] ContactNote newNote)
         {
             return Ok(_service.EditContactNote(ContactId, NoteId, newNote));
         }
 
         [HttpPut("edit-task-note/{OpportunityId}/{TaskId}/{NoteId}")]
-        public IActionResult EditTaskNote(int OpportunityId, int TaskId, int NoteId, [FromBody] Note newNote)
+        public IActionResult EditTaskNote(int OpportunityId, int TaskId, int NoteId, [FromBody] TaskNote newNote)
         {
             return Ok(_service.EditTaskNote(OpportunityId, TaskId, NoteId, newNote));
         }

@@ -6,10 +6,12 @@
         {
             FieldName = fieldName;
             Description = descrip;
+            Contacts = new List<Contact>();
         }
 
         public string FieldName { get; private set; }
         public string Description { get; private set; }
+        public List<Contact> Contacts { get; private set; }
 
         public void EditField(FieldOrIndustry newInfo)
         {

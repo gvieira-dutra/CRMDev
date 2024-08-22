@@ -2,7 +2,7 @@
 
 namespace CRMDev.Application.InputModels
 {
-    public class ContactCreateInputModel(string name, string email, string phone, string cellPhone, FieldOrIndustry fieldOrIndustry, string position, string address, Note note)
+    public class ContactCreateInputModel(string name, string email, string phone, string cellPhone, FieldOrIndustry fieldOrIndustry, string position, string address, BaseNote note)
     {
         public string Name { get; private set; } = name;
         public string Email { get; private set; } = email;
@@ -11,6 +11,6 @@ namespace CRMDev.Application.InputModels
         public FieldOrIndustry FieldOrIndustry { get; private set; } = fieldOrIndustry;
         public string Position { get; private set; } = position;
         public string Address { get; private set; } = address;
-        public Note Note { get; private set; } = note;
+        public BaseNote Note { get; private set; } = note;
     }
 }
