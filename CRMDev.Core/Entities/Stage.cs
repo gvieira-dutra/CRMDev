@@ -4,5 +4,12 @@
     {
         public string Name { get; private set; } = name;
         public List<Task> Tasks { get; private set; } = defaultTasks;
+
+        public string StageSummary { get; private set; }
+
+        public void CreateStageSummary()
+        {
+            //TasksSummary = 
+        }
     }   
 }

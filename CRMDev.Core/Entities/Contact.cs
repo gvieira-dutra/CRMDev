@@ -1,8 +1,4 @@
-﻿using System.Net;
-using System.Numerics;
-using System.Xml.Linq;
-
-namespace CRMDev.Core.Entities
+﻿namespace CRMDev.Core.Entities
 {
     public class Contact : BaseClass
     {
@@ -39,8 +35,8 @@ namespace CRMDev.Core.Entities
         public string Position { get; private set; }
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
+        public string ContactNotesSummary { get; private set; }
         public List<Note> Notes { get; private set; }
-
 
         public void AddContactNote(Note note)
         {
@@ -54,13 +50,14 @@ namespace CRMDev.Core.Entities
 
         public void EditContact(Contact newContactInfo)
         {
-            Name = newContactInfo.Name ?? Name;
-            Email = newContactInfo.Email ?? Email;
-            Phone = newContactInfo.Phone ?? Phone;
-            CellPhone = newContactInfo.CellPhone ?? CellPhone;
+            Name = string.IsNullOrEmpty(newContactInfo.Name) ? Name : newContactInfo.Name;
+            Email = string.IsNullOrEmpty(newContactInfo.Email) ? Email : newContactInfo.Email;
+            Phone = string.IsNullOrEmpty(newContactInfo.Phone) ? Phone : newContactInfo.Phone;
+            CellPhone = string.IsNullOrEmpty(newContactInfo.CellPhone) ? CellPhone : newContactInfo.CellPhone;
             FieldOrIndustry = newContactInfo.FieldOrIndustry ?? FieldOrIndustry;
-            Position = newContactInfo.Position ?? Position;
-            Address = newContactInfo.Address ?? Address;
+            Position = string.IsNullOrEmpty(newContactInfo.Position) ? Position : newContactInfo.Position;
+            Address = string.IsNullOrEmpty(newContactInfo.Address) ? Address : newContactInfo.Address;
+
         }
     }
 }

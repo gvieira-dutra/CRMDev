@@ -22,7 +22,6 @@ namespace CRMDev.Application.Services.Implementations
             
             _dbContext.FieldOrIndustries
                 .Remove(toBeDeleted);
-                
         }
 
         public List<FieldOrIndustry> GetAll(string query)

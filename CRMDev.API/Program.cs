@@ -13,6 +13,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<CRMDevDbContext>();
 builder.Services.AddScoped<IOpportunityServices, OpportunityServices>();
+builder.Services.AddScoped<IContactServices, ContactServices>();
+builder.Services.AddScoped<IFieldServices, FieldServices>();
+builder.Services.AddScoped<INoteServices, NoteServices>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
