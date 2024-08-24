@@ -1,7 +1,18 @@
-﻿namespace CRMDev.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace CRMDev.Core.Entities
 {
-    public class ContactNote(Contact contact, string content) : BaseNote(content)
+    public class ContactNote : BaseNote
     {
-        public int ContactId { get; private set; } = contact.Id;
+        public ContactNote(Contact contact, string content) : base(content)
+        {
+            ContactId = contact.Id;
+            Contact = contact;
+        }
+        public ContactNote() : base() {}
+        public int ContactId { get; private set; }
+
+        [JsonIgnore]
+        public Contact Contact { get; private set; }
     }
 }

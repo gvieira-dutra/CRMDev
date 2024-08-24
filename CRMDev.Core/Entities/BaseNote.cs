@@ -6,6 +6,7 @@
         {
             Content = content;
         }
+        public BaseNote() {}
         public string Content { get; private set; }
 
         public void EditNoteContent(string newContent)

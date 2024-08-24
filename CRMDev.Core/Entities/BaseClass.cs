@@ -2,6 +2,7 @@
 {
     public class BaseClass
     {
+        public BaseClass() {}
         public int Id { get; private set; }
     }
 }

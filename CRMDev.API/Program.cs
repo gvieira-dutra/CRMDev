@@ -1,6 +1,7 @@
 using CRMDev.Application.Services.Implementations;
 using CRMDev.Application.Services.Interfaces;
 using CRMDev.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<CRMDevDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("CRMDevCS");
+builder.Services.AddDbContext<CRMDevDbContext>(s => s.UseSqlServer(connectionString));
+
 builder.Services.AddScoped<IOpportunityServices, OpportunityServices>();
 builder.Services.AddScoped<IContactServices, ContactServices>();
 builder.Services.AddScoped<IFieldServices, FieldServices>();
 builder.Services.AddScoped<INoteServices, NoteServices>();
+
 
 var app = builder.Build();
 

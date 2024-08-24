@@ -2,6 +2,7 @@
 {
     public class Contact : BaseClass
     {
+        public Contact() {}
         public Contact(string name, string email, string phone, string cellPhone, FieldOrIndustry fieldOrIndustry, string position, string address)
         {
             Name = name;

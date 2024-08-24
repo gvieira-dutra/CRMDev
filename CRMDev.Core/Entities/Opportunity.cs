@@ -4,6 +4,7 @@ namespace CRMDev.Core.Entities
 {
     public class Opportunity: BaseClass
     {
+        public Opportunity() {}
         public Opportunity(string title, string description, DateTime deliveryEstimate, decimal estimative, string scope, bool supportIncluded, int contactId)
         {
             Title = title;

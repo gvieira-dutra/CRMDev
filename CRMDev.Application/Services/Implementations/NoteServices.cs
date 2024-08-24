@@ -36,10 +36,10 @@ namespace CRMDev.Application.Services.Implementations
                 .FirstOrDefault(t => t.Id == opp.CurrentTaskTracker);
 
             var taskNote = task
-                .Notes
+                .TaskNotes
                 .FirstOrDefault(n => n.Id == noteId);
 
-            task.Notes.Remove(taskNote);
+            task.TaskNotes.Remove(taskNote);
 
         }
 
@@ -64,7 +64,7 @@ namespace CRMDev.Application.Services.Implementations
             var taskNote = opp
                 .Stages[opp.CurrentStageTracker]
                 .Tasks[TaskId]
-                .Notes
+                .TaskNotes
                 .FirstOrDefault(n => n.Id == noteId);
 
             taskNote.EditNoteContent(newNote.Content);

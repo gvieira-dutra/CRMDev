@@ -2,6 +2,7 @@
 {
     public class FieldOrIndustry : BaseClass
     {
+        public FieldOrIndustry() {}
         public FieldOrIndustry(string fieldName, string descrip)
         {
             FieldName = fieldName;
