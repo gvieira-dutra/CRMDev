@@ -54,9 +54,9 @@ namespace CRMDev.API.Controllers
         }
 
         [HttpPut("set-status-lost/{opportunityId}")]
-        public IActionResult SetStatusLost(int id, [FromBody] ReasonForLostDeal reason)
+        public IActionResult SetStatusLost(int opportunityId, [FromBody] ReasonForLostDeal reason)
         {
-            return Ok(_services.SetStatusLost(id, reason));
+            return Ok(_services.SetStatusLost(opportunityId, reason));
         }
 
     }

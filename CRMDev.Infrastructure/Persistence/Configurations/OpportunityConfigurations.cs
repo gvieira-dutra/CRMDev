@@ -17,6 +17,11 @@ namespace CRMDev.Infrastructure.Persistence.Configurations
                 .HasForeignKey(s => s.OpportunityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder
+                .HasOne(c => c.Contact)
+                .WithMany(o => o.Opportunities)
+                .HasForeignKey(c => c.ContactId);
+
         }
     }
 }

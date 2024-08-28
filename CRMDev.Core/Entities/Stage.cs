@@ -17,7 +17,7 @@ namespace CRMDev.Core.Entities
         public Opportunity Opportunity { get; private set; }
         public int OpportunityId { get; private set; }
 
-        public string StageSummary { get; private set; }
+        public string? StageSummary { get; private set; }
 
         public void CreateStageSummary()
         {

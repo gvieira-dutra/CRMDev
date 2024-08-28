@@ -22,6 +22,9 @@ namespace CRMDev.Application.Services.Implementations
             
             _dbContext.FieldOrIndustries
                 .Remove(toBeDeleted);
+
+            _dbContext.SaveChanges();
+
         }
 
         public List<FieldOrIndustry> GetAll(string query)
@@ -50,7 +53,9 @@ namespace CRMDev.Application.Services.Implementations
             _dbContext.FieldOrIndustries
                 .Add(field);
 
-            return (GetOne(0));
+            _dbContext.SaveChanges();
+
+            return (GetOne(field.Id));
         }
 
         public FieldOrIndustry Put(int id, FieldInputModel newFieldInfo)
@@ -65,6 +70,8 @@ namespace CRMDev.Application.Services.Implementations
                 );
 
             fieldToBeEdited?.EditField(fieldNewInfo);
+
+            _dbContext.SaveChanges();
 
             return fieldToBeEdited;
         }

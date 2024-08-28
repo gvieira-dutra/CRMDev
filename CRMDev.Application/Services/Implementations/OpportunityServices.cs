@@ -4,6 +4,7 @@ using CRMDev.Application.ViewModels;
 using CRMDev.Core.Entities;
 using CRMDev.Core.Enums;
 using CRMDev.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMDev.Application.Services.Implementations
 {
@@ -27,9 +28,29 @@ namespace CRMDev.Application.Services.Implementations
         public OpportunityDetailVM GetOne(int id)
         {
             var opportunity = _dbContext?.Opportunities
-                .FirstOrDefault(o => o.Id == id);
+                .Include(s => s.Stages)
+                    .ThenInclude(t => t.Tasks)
+                .Include(c => c.Contact)
+                .SingleOrDefault(o => o.Id == id);
 
-            return CreateOpportunityDetailVM(opportunity);
+            var opportunityVM = new OpportunityDetailVM(
+                opportunity.Title,
+                opportunity.Description,
+                opportunity.DeliveryEstimate,
+                opportunity.Estimative,
+                opportunity.Scope,
+                opportunity.SupportIncluded,
+                opportunity.Status,
+                opportunity.ReasonForLostDeal,
+                opportunity.Stages,
+                opportunity.ContactId,
+                opportunity.Stages[opportunity.CurrentStageTracker].Name.ToString() ?? "N/A",
+                opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].Name.ToString() ?? "N/A",
+                 opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].Description.ToString() ?? "N/A"
+
+            );
+
+            return opportunityVM;
 
         }
 
@@ -48,13 +69,18 @@ namespace CRMDev.Application.Services.Implementations
             _dbContext.Opportunities
                 .Add(opportunity);
 
+            _dbContext.SaveChanges();
+
             return CreateOpportunityDetailVM(opportunity);
         }
 
         public OpportunityDetailVM Put(int id, EditOpportunityInputModel opportunity)
         {
-            var oppToBeEdited = _dbContext.Opportunities
-                .FirstOrDefault(o => o.Id == id);
+            var oppToBeEdited = _dbContext?.Opportunities
+               .Include(s => s.Stages)
+                   .ThenInclude(t => t.Tasks)
+               .Include(c => c.Contact)
+               .SingleOrDefault(o => o.Id == id);
 
             var opp = new Opportunity(
                 opportunity.Title,
@@ -67,27 +93,22 @@ namespace CRMDev.Application.Services.Implementations
 
             oppToBeEdited.EditOpportunity(opp);
 
-            return CreateOpportunityDetailVM(oppToBeEdited);
+            _dbContext.SaveChanges();
 
-            /*
-             {
-  "title": "Brand New Opportunity",
-  "description": "Test Opportunity",
-  "deliveryEstimate": "2025-08-22T02:44:15.925Z",
-  "estimative": 99999,
-  "scope": "All the work",
-  "supportIncluded": true,
-  "contactId": 8
-}
-             */
+            return CreateOpportunityDetailVM(oppToBeEdited);
         }
 
         public OpportunityDetailVM CompleteCurrentTask(int id)
         {
             var opportunity = _dbContext?.Opportunities
-               .FirstOrDefault(o => o.Id == id);
+               .Include(s => s.Stages)
+                   .ThenInclude(t => t.Tasks)
+               .Include(c => c.Contact)
+               .SingleOrDefault(o => o.Id == id);
 
             opportunity.AdvanceTask();
+
+            _dbContext.SaveChanges();
 
             return CreateOpportunityDetailVM(opportunity);
         }
@@ -96,9 +117,14 @@ namespace CRMDev.Application.Services.Implementations
         public OpportunityDetailVM SetStatusClosed(int id)
         {
             var opportunity = _dbContext?.Opportunities
-               .FirstOrDefault(o => o.Id == id);
+               .Include(s => s.Stages)
+                   .ThenInclude(t => t.Tasks)
+               .Include(c => c.Contact)
+               .SingleOrDefault(o => o.Id == id);
 
             opportunity.SetStatusClosed();
+
+            _dbContext.SaveChanges();
 
             return CreateOpportunityDetailVM(opportunity);
         }
@@ -106,9 +132,14 @@ namespace CRMDev.Application.Services.Implementations
         public OpportunityDetailVM SetStatusLost(int id, ReasonForLostDeal reason)
         {
             var opportunity = _dbContext?.Opportunities
-               .FirstOrDefault(o => o.Id == id);
+               .Include(s => s.Stages)
+                   .ThenInclude(t => t.Tasks)
+               .Include(c => c.Contact)
+               .SingleOrDefault(o => o.Id == id);
 
             opportunity.SetStatusLost(reason);
+
+            _dbContext.SaveChanges();
 
             return CreateOpportunityDetailVM(opportunity);
         }
@@ -128,7 +159,7 @@ namespace CRMDev.Application.Services.Implementations
                 opportunity.ContactId,
                 opportunity.Stages[opportunity.CurrentStageTracker].Name.ToString() ?? "N/A",
                 opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].Name.ToString() ?? "N/A",
-                 opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].Description.ToString() ?? "N/A"
+                opportunity.Stages[opportunity.CurrentStageTracker].Tasks[opportunity.CurrentTaskTracker].Description.ToString() ?? "N/A"
 
             );
 

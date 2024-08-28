@@ -1,4 +1,6 @@
-﻿namespace CRMDev.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace CRMDev.Core.Entities
 {
     public class Contact : BaseClass
     {
@@ -14,18 +16,23 @@
             Address = address;
             IsActive = true;
             Notes = new List<ContactNote>();
+            Opportunities = new List<Opportunity>();
         }
 
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Phone { get; private set; }
         public string CellPhone { get; private set; }
+        [JsonIgnore]
         public FieldOrIndustry FieldOrIndustry { get; private set; }
         public string Position { get; private set; }
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
-        public string ContactNotesSummary { get; private set; }
+        public string? ContactNotesSummary { get; private set; }
+        [JsonIgnore]
         public List<ContactNote> Notes { get; private set; }
+        [JsonIgnore]
+        public List<Opportunity> Opportunities { get; private set; }
         public int FieldOrIndustryId { get; private set; }
 
         public void AddContactNote(ContactNote note)

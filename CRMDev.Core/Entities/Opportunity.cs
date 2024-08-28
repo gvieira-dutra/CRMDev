@@ -40,6 +40,7 @@ namespace CRMDev.Core.Entities
         public Status Status { get; private set; } 
         public ReasonForLostDeal ReasonForLostDeal { get; private set; }
         public int ContactId { get; private set; }
+        public Contact Contact { get; private set; }
         public int CurrentStageTracker { get; private set; }
         public int CurrentTaskTracker { get; private set; }
         public List<Stage> Stages { get; private set; }
@@ -95,19 +96,26 @@ namespace CRMDev.Core.Entities
 
         public void AdvanceTask()
         {
-            Stages[CurrentStageTracker]
-                .Tasks[CurrentTaskTracker]
-                .MarkAsCompleted();
+                if (CurrentTaskTracker < Stages[CurrentStageTracker].Tasks.Count() - 1)
+                {
+                    Stages[CurrentStageTracker]
+                        .Tasks[CurrentTaskTracker]
+                        .MarkAsCompleted();
 
-            if(CurrentTaskTracker == Stages[CurrentStageTracker].Tasks.Count())
-            {
-                CurrentStageTracker += 1;
-                CurrentTaskTracker = 0;
-            }
-            else
-            {
-                CurrentTaskTracker += 1;
-            }
+                    CurrentTaskTracker += 1;
+                }
+                else
+                {
+                    Stages[CurrentStageTracker]
+                        .Tasks[CurrentTaskTracker]
+                        .MarkAsCompleted();
+                    
+                    if (CurrentStageTracker != 6)
+                    {
+                        CurrentStageTracker += 1;
+                        CurrentTaskTracker = 0;
+                    }
+                }
         }
 
         public void SetStatusClosed()

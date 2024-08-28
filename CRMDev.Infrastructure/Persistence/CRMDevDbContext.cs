@@ -14,7 +14,7 @@ namespace CRMDev.Infrastructure.Persistence
         public DbSet<Opportunity> Opportunities { get; set; }
         public DbSet<FieldOrIndustry> FieldOrIndustries { get; set; }
         public DbSet<Stage> Stages { get; set; }
-        public DbSet<Core.Entities.Task> Tasks { get; set; }
+        public DbSet<CRMDev.Core.Entities.Task> Tasks { get; set; }
         public DbSet<TaskNote> TaskNotes { get; set; }
         public DbSet<ContactNote> ContactNotes { get; set; }
         

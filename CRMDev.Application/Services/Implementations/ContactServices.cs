@@ -21,6 +21,8 @@ namespace CRMDev.Application.Services.Implementations
                 .FirstOrDefault(a => a.Id == id);
 
             contact?.DeleteContact();
+
+            SaveChanges();
         }
 
         public List<ContactVM> GetAll(string query)
@@ -35,63 +37,21 @@ namespace CRMDev.Application.Services.Implementations
 
         public ContactDetailVM GetOne(int id)
         {
-            var contact = _dbContext.Contacts
-                .Where(c => c.Id == id)
-                .Select(c => new ContactDetailVM(
-                    c.Name, 
-                    c.Email,
-                    c.Phone,
-                    c.CellPhone,
-                    c.FieldOrIndustry.FieldName,
-                    c.Position,
-                    c.Address,
-                    c.IsActive.ToString(),
-                    c.Notes)
-                )
-                .FirstOrDefault();
-
-            return contact;
+            return CreateContactDetailVM(id);
         }
 
         public ContactDetailVM Post(ContactCreateInputModel newContact)
         {
-            var contact = new Contact(newContact.Name, newContact.Email, newContact.Phone, newContact.CellPhone, newContact.FieldOrIndustry, newContact.Position, newContact.Address);
+            var field = _dbContext.FieldOrIndustries.FirstOrDefault(f => f.Id == newContact.FieldOrIndustryId);
+
+            var contact = new Contact(newContact.Name, newContact.Email, newContact.Phone, newContact.CellPhone, field, newContact.Position, newContact.Address);
 
             _dbContext.Contacts
                 .Add(contact);
-            /*
-                                    {
-                                        "name": "Gleison Vieira",
-                          "email": "gv@mail.com",
-                          "phone": "(123) 456-7890",
-                          "cellPhone": "n/a",
-                          "fieldOrIndustry": {
-                                            "fieldName": "sales"
-                          },
-                          "position": "Sales Manager",
-                          "address": "399 Spadina Ave",
-                          "note": {
-                                            "content": "Friend's recommendation"
-                          }
-                                    }
+ 
+            SaveChanges();
 
-             */
-            var contactVM = _dbContext.Contacts
-               .Where(c => c.Id == contact.Id)
-               .Select(c => new ContactDetailVM(
-                   c.Name,
-                   c.Email,
-                   c.Phone,
-                   c.CellPhone,
-                   c.FieldOrIndustry.FieldName,
-                   c.Position,
-                   c.Address,
-                   c.IsActive.ToString(),
-                   c.Notes)
-               )
-               .FirstOrDefault();
-
-            return contactVM;
+            return CreateContactDetailVM(contact.Id);
         }
 
         public ContactDetailVM Put(int id, ContactEditInputModel contactEditInputModel)
@@ -111,20 +71,33 @@ namespace CRMDev.Application.Services.Implementations
 
             contactToBeEdited?.EditContact(contactNewInfo);
 
+            SaveChanges();
+
+            return CreateContactDetailVM(contactToBeEdited.Id);
+        }
+
+
+        private void SaveChanges()
+        {
+            _dbContext.SaveChanges();
+        }
+
+        private ContactDetailVM CreateContactDetailVM(int id)
+        {
             var contactVM = _dbContext.Contacts
-                .Where(c => c.Id == id)
-                .Select(c => new ContactDetailVM(
-                    c.Name,
-                    c.Email,
-                    c.Phone,
-                    c.CellPhone,
-                    c.FieldOrIndustry.FieldName,
-                    c.Position,
-                    c.Address,
-                    c.IsActive.ToString(),
-                    c.Notes)
-                )
-                .FirstOrDefault();
+               .Where(c => c.Id == id)
+               .Select(c => new ContactDetailVM(
+                   c.Name,
+                   c.Email,
+                   c.Phone,
+                   c.CellPhone,
+                   c.FieldOrIndustry.FieldName,
+                   c.Position,
+                   c.Address,
+                   c.IsActive.ToString(),
+                   c.Notes)
+               )
+               .FirstOrDefault();
 
             return contactVM;
         }

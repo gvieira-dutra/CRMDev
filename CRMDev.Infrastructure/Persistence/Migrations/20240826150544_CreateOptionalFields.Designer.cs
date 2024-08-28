@@ -4,6 +4,7 @@ using CRMDev.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMDev.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CRMDevDbContext))]
-    partial class CRMDevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240826150544_CreateOptionalFields")]
+    partial class CreateOptionalFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,8 +162,6 @@ namespace CRMDev.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContactId");
-
                     b.ToTable("Opportunities");
                 });
 
@@ -262,17 +263,6 @@ namespace CRMDev.Infrastructure.Persistence.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("CRMDev.Core.Entities.Opportunity", b =>
-                {
-                    b.HasOne("CRMDev.Core.Entities.Contact", "Contact")
-                        .WithMany("Opportunities")
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Contact");
-                });
-
             modelBuilder.Entity("CRMDev.Core.Entities.Stage", b =>
                 {
                     b.HasOne("CRMDev.Core.Entities.Opportunity", "Opportunity")
@@ -309,8 +299,6 @@ namespace CRMDev.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CRMDev.Core.Entities.Contact", b =>
                 {
                     b.Navigation("Notes");
-
-                    b.Navigation("Opportunities");
                 });
 
             modelBuilder.Entity("CRMDev.Core.Entities.FieldOrIndustry", b =>
