@@ -40,8 +40,6 @@ namespace CRMDev.Application.Services.Implementations
                 .Include(t => t.TaskNotes)
                 .SingleOrDefault(t => t.Id == taskId);
 
-
-
             task.TaskNotes.Remove(taskNote);
 
             _dbContext.SaveChanges();
@@ -132,6 +130,7 @@ namespace CRMDev.Application.Services.Implementations
                    c.Position,
                    c.Address,
                    c.IsActive.ToString(),
+                   c.ContactNotesSummary ?? "N/A",
                    c.Notes)
                )
                .FirstOrDefault();
