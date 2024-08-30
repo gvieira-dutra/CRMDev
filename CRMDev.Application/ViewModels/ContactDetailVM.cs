@@ -2,7 +2,7 @@
 
 namespace CRMDev.Application.ViewModels
 {
-    public class ContactDetailVM(string name, string email, string phone, string cellPhone, string fieldOrIndustry, string position, string address, string status, List<ContactNote> notes)
+    public class ContactDetailVM(string name, string email, string phone, string cellPhone, string fieldOrIndustry, string position, string address, string status, string notesSummary, List<ContactNote> notes)
     {
         public string Name { get; private set; } = name;
         public string Email { get; private set; } = email;
@@ -12,6 +12,7 @@ namespace CRMDev.Application.ViewModels
         public string Position { get; private set; } = position;
         public string Address { get; private set; } = address;
         public string IsActive { get; private set; } = status;
+        public string NotesSummary { get; private set; } = notesSummary;
         public List<ContactNote> Notes { get; private set; } = notes;
     }
 }
