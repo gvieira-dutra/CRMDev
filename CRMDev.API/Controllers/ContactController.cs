@@ -1,5 +1,9 @@
-﻿using CRMDev.Application.InputModels;
-using CRMDev.Application.Services.Interfaces;
+﻿using CRMDev.Application.Command.ContactDelete;
+using CRMDev.Application.Command.ContactPost;
+using CRMDev.Application.Command.ContactPut;
+using CRMDev.Application.Query.ContactGetAll;
+using CRMDev.Application.Query.ContactGetOne;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRMDev.API.Controllers
@@ -7,43 +11,54 @@ namespace CRMDev.API.Controllers
     [Route("api/contacts")]
     public class ContactController : ControllerBase
     {
-        private readonly IContactServices _services;
+        private readonly IMediator _mediator;
 
-        public ContactController(IContactServices services)
+        public ContactController(IMediator mediator)
         {
-            _services = services;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public IActionResult GetAll(GetAllContactQuery command)
         {
-            var contacts = _services.GetAll(query);
-
-            return Ok(contacts);
+            return Ok(_mediator.Send(command));
         }
 
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
-            return Ok(_services.GetOne(id));
+            var command = new GetOneContactQuery();
+            command.Id = id;
+
+            var contact = _mediator.Send(command);
+
+            return contact == null ? NotFound() : Ok(contact);
         }
 
         [HttpPost("new")]
-        public IActionResult Post([FromBody] ContactCreateInputModel contact)
+        public IActionResult Post([FromBody] PostContactCommand command)
         {
-            return Ok(_services.Post(contact));
+            var contact = _mediator.Send(command);
+            
+            return contact == null ? NotFound() : Ok(contact);
+
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] ContactEditInputModel newInfo)
+        public IActionResult Put(int id, [FromBody] PutContactCommand command)
         {
-            return Ok(_services.Put(id, newInfo));
+            command.Id = id;
+            var contact = _mediator.Send(command);
+
+            return contact == null ? NotFound() : Ok(contact);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _services.Delete(id);
+            var command = new DeleteContactCommand(id);
+
+            _mediator.Send(command);
             return NoContent();
         }
     }

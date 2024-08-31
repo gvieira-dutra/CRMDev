@@ -43,6 +43,7 @@ namespace CRMDev.API.Controllers
         [HttpPut("complete-current-task/{opportunityId}")]
         public IActionResult CompleteCurrentTask(int opportunityId)
         {
+            // set id on the CompleteCurrentTaskCommand before passing the command
             var opportunity = _services.CompleteCurrentTask(opportunityId);
             return Ok(opportunity);
         }
