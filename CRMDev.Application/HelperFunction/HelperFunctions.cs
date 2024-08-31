@@ -54,5 +54,20 @@ namespace CRMDev.Application.HelperFunction
 
             return contactVM;
         }
+
+        public async Task<FieldOrIndustryVM> CreateFieldOrIndustryVM(CRMDevDbContext _dbContext, int id)
+        {
+            var field = await _dbContext.FieldOrIndustries
+                .Where(f => f.Id == id)
+                .Select(f => new FieldOrIndustryVM(
+                    f.FieldName, 
+                    f.Description
+                    )
+                )
+                .SingleOrDefaultAsync();
+
+            return field;
+        }
+
     }
 }
