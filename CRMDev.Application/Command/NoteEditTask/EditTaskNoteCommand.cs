@@ -3,10 +3,10 @@ using MediatR;
 
 namespace CRMDev.Application.Command.NoteEditTask
 {
-    public class EditTaskNoteCommand : IRequest<OpportunityDetailVM>
+    public class EditTaskNoteCommand(int opportunityId, int taskId, string newNote) : IRequest<OpportunityDetailVM>
     {
-        public int OpportunityId { get; set; }
-        public int TaskId { get; set; }
-        public string NewNote { get; set; }
+        public int OpportunityId { get; set; } = opportunityId;
+        public int TaskId { get; set; } = taskId;
+        public string NewNote { get; set; } = newNote;
     }
 }

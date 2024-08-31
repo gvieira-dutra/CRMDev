@@ -3,11 +3,11 @@ using MediatR;
 
 namespace CRMDev.Application.Command.NoteEditContactNote
 {
-    public class EditContactNoteCommand : IRequest<ContactDetailVM>
+    public class EditContactNoteCommand(int contactId, int noteId, string newNote) : IRequest<ContactDetailVM>
     {
-        public int ContactId { get; set; }
-        public int NoteId { get; set; }
-        public string NewNote { get; set; }
+        public int ContactId { get; set; } = contactId;
+        public int NoteId { get; set; } = noteId;
+        public string NewNote { get; set; } = newNote;
 
     }
 }

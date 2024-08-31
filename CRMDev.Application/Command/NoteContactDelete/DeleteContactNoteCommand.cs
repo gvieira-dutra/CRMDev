@@ -2,9 +2,9 @@
 
 namespace CRMDev.Application.Command.NoteContactDelete
 {
-    public class DeleteContactNoteCommand : IRequest<Unit>
+    public class DeleteContactNoteCommand(int contactId, int noteId) : IRequest<Unit>
     {
-        public int ContactId { get; set; }
-        public int NoteId { get; set; }
+        public int ContactId { get; set; } = contactId;
+        public int NoteId { get; set; } = noteId;
     }
 }

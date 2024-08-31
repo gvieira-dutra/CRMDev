@@ -3,9 +3,9 @@ using MediatR;
 
 namespace CRMDev.Application.Command.NotePostContactNote
 {
-    public class PostContactNoteCommand : IRequest<ContactDetailVM>
+    public class PostContactNoteCommand(int id, string note) : IRequest<ContactDetailVM>
     {
-        public int Id { get; set; }
-        public string Note { get; set; }
+        public int Id { get; set; } = id;
+        public string Note { get; set; } = note;
     }
 }
