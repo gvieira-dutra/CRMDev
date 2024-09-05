@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using CRMDev.Core.DTO;
+using System.Text.Json.Serialization;
 
 namespace CRMDev.Core.Entities
 {
@@ -19,20 +20,30 @@ namespace CRMDev.Core.Entities
             Opportunities = new List<Opportunity>();
         }
 
+        public Contact(string name, string email, string phone, string cellPhone, string position, string address)
+        {
+            Name = name;
+            Email = email;
+            Phone = phone;
+            CellPhone = cellPhone ?? "N/A";
+            Position = position;
+            Address = address;
+        }
+
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Phone { get; private set; }
         public string CellPhone { get; private set; }
         [JsonIgnore]
-        public FieldOrIndustry FieldOrIndustry { get; private set; }
+        public FieldOrIndustry? FieldOrIndustry { get; private set; }
         public string Position { get; private set; }
         public string Address { get; private set; }
         public bool IsActive { get; private set; }
         public string? ContactNotesSummary { get; private set; }
         [JsonIgnore]
-        public List<ContactNote> Notes { get; private set; }
+        public List<ContactNote>? Notes { get; private set; }
         [JsonIgnore]
-        public List<Opportunity> Opportunities { get; private set; }
+        public List<Opportunity>? Opportunities { get; private set; }
         public int FieldOrIndustryId { get; private set; }
 
         public void AddContactNote(ContactNote note)
@@ -45,21 +56,21 @@ namespace CRMDev.Core.Entities
             IsActive = false;
         }
 
-        public void EditContact(Contact newContactInfo)
+        public void EditContact(ContactDTO newContactInfo)
         {
             Name = string.IsNullOrEmpty(newContactInfo.Name) ? Name : newContactInfo.Name;
             Email = string.IsNullOrEmpty(newContactInfo.Email) ? Email : newContactInfo.Email;
             Phone = string.IsNullOrEmpty(newContactInfo.Phone) ? Phone : newContactInfo.Phone;
             CellPhone = string.IsNullOrEmpty(newContactInfo.CellPhone) ? CellPhone : newContactInfo.CellPhone;
-            FieldOrIndustry = newContactInfo.FieldOrIndustry ?? FieldOrIndustry;
+            
             Position = string.IsNullOrEmpty(newContactInfo.Position) ? Position : newContactInfo.Position;
             Address = string.IsNullOrEmpty(newContactInfo.Address) ? Address : newContactInfo.Address;
 
         }
 
-        public void CreateContactNotesSummary()
+        public void UpdateContactNotesSummary(string newSummary)
         {
-            //ContactNotesSummary
+            ContactNotesSummary = newSummary;
         }
     }
 }

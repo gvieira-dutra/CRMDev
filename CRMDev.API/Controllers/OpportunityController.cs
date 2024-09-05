@@ -1,6 +1,10 @@
-﻿using CRMDev.Application.InputModels;
-using CRMDev.Application.Services.Interfaces;
-using CRMDev.Core.Enums;
+﻿using CRMDev.Application.Command.OpportunityCompleteCurrTask;
+using CRMDev.Application.Command.OpportunitySetStatusClosed;
+using CRMDev.Application.Command.OpportunitySetStatusLost;
+using CRMDev.Application.Command.PostOpportunity;
+using CRMDev.Application.Query.OpportunityGetAll;
+using CRMDev.Application.Query.OpportunityGetOne;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRMDev.API.Controllers
@@ -8,56 +12,72 @@ namespace CRMDev.API.Controllers
     [Route("api/opportunity")]
     public class OpportunityController : ControllerBase
     {
-        private readonly IOpportunityServices _services;
-        public OpportunityController(IOpportunityServices services)
+        private readonly IMediator _mediator;
+
+        public OpportunityController(IMediator mediator)
         {
-            _services = services;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public IActionResult GetAll(string query)
+        public async Task<IActionResult> GetAll(GetAllOpportunityCommand command)
         {
-            var opportunities = _services.GetAll(query);
-            return Ok(opportunities);
+            var opportunities = await _mediator.Send(command);
+
+            return opportunities == null ? NoContent() : Ok(opportunities);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
+        public async Task<IActionResult> GetOne(int id)
         {
-            var opportunity = _services.GetOne(id);
-            return Ok(opportunity);
+            var command = new GetOneOpportunityCommand(id);
+                var opportunity = await _mediator.Send(command);
+                return opportunity == null ? NoContent() : Ok(opportunity);
+
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateOpportunityInputModel createOpportunityModel)
+        public async Task<IActionResult> Post([FromBody] PostOpportunityCommand command)
         {
-            return Ok(_services.Post(createOpportunityModel));
+            var opportunity = await _mediator.Send(command);
+
+            return opportunity == null ? NoContent() : Ok(opportunity);
         }
 
         [HttpPut("edit/{id}")]
-        public IActionResult Put(int id, [FromBody] EditOpportunityInputModel opportunityNewInfo)
+        public async Task<IActionResult> Put(int id, [FromBody] PutOpportunityCommand command)
         {
-            return Ok(_services.Put(id, opportunityNewInfo));
+            command.Id = id;
+            var opportunity = await _mediator.Send(command);
+
+            return opportunity == null ? NoContent() : Ok(opportunity);
         }
 
         [HttpPut("complete-current-task/{opportunityId}")]
-        public IActionResult CompleteCurrentTask(int opportunityId)
+        public async Task<IActionResult> CompleteCurrentTask(int opportunityId)
         {
-            // set id on the CompleteCurrentTaskCommand before passing the command
-            var opportunity = _services.CompleteCurrentTask(opportunityId);
-            return Ok(opportunity);
+            var command = new CompleteCurrentTaskCommand(opportunityId);
+            var opportunity = await _mediator.Send(command);
+
+            return opportunity == null ? NoContent() : Ok(opportunity);
         }
 
         [HttpPut("set-status-closed{id}")]
-        public IActionResult SetStatusClosed(int id)
+        public async Task<IActionResult> SetStatusClosed(int id)
         {
-            return Ok(_services.SetStatusClosed(id));
+            var command = new SetStatusClosedCommand(id);
+            var opportunity = await _mediator.Send(command);
+
+            return opportunity == null ? NoContent() : Ok(opportunity);
         }
 
         [HttpPut("set-status-lost/{opportunityId}")]
-        public IActionResult SetStatusLost(int opportunityId, [FromBody] ReasonForLostDeal reason)
+        public async Task<IActionResult> SetStatusLost(int opportunityId, [FromBody] SetStatusLostCommand command)
         {
-            return Ok(_services.SetStatusLost(opportunityId, reason));
+            command.Id = opportunityId;
+            var opportunity = await _mediator.Send(command);
+
+            return opportunity == null ? NoContent() : Ok(opportunity);
         }
 
     }

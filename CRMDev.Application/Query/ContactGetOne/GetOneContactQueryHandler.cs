@@ -8,8 +8,8 @@ namespace CRMDev.Application.Query.ContactGetOne
     internal class GetOneContactQueryHandler : IRequestHandler<GetOneContactQuery, ContactDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public GetOneContactQueryHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public GetOneContactQueryHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

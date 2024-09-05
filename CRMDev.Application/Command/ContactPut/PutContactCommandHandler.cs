@@ -1,4 +1,5 @@
-﻿using CRMDev.Application.HelperFunction;
+﻿using CRMDev.Core.DTO;
+using CRMDev.Application.HelperFunction;
 using CRMDev.Application.ViewModels;
 using CRMDev.Core.Entities;
 using CRMDev.Infrastructure.Persistence;
@@ -10,8 +11,8 @@ namespace CRMDev.Application.Command.ContactPut
     public class PutContactCommandHandler : IRequestHandler<PutContactCommand, ContactDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public PutContactCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public PutContactCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -19,25 +20,25 @@ namespace CRMDev.Application.Command.ContactPut
 
         public async Task<ContactDetailVM> Handle(PutContactCommand request, CancellationToken cancellationToken)
         {
-            var contactNewInfo = new Contact(
+            var contactNewInfo = new ContactDTO(
+                request.Id,
                 request.Name,
-                 request.Email,
+                request.Email,
                 request.Phone,
                 request.CellPhone,
-                request.FieldOrIndustry,
                 request.Position,
                 request.Address
-            );
+            );            
 
             var contactToBeEdited = await _dbContext.Contacts
-                .Where(c => c.Id == request.Id)
-                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                .FirstOrDefaultAsync(c => c.Id == request.Id,  cancellationToken);
 
             contactToBeEdited.EditContact(contactNewInfo);
-
+            _dbContext.Update(contactToBeEdited);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return await _helper.CreateContactDetailVM(_dbContext, contactToBeEdited.Id);
+            return await _helper.CreateContactDetailVM(_dbContext, request.Id);
+
         }
     }
 }

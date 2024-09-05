@@ -9,8 +9,8 @@ namespace CRMDev.Application.Command.NoteEditTask
     public class EditTaskNoteCommandHandler : IRequestHandler<EditTaskNoteCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public EditTaskNoteCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public EditTaskNoteCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

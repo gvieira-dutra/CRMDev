@@ -10,8 +10,8 @@ namespace CRMDev.Application.Command.FieldPut
     public class PutFieldCommandHandler : IRequestHandler<PutFieldCommand, FieldOrIndustryVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public PutFieldCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public PutFieldCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -32,7 +32,7 @@ namespace CRMDev.Application.Command.FieldPut
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return await HelperFunctions.CreateFieldOrIndustryVM(_dbContext, request.Id);
+            return await _helper.CreateFieldOrIndustryVM(_dbContext, request.Id);
         }
     }
 }

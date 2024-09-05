@@ -10,8 +10,8 @@ namespace CRMDev.Application.Command.NoteEditContactNote
     public class EditContactNoteCommandHandler : IRequestHandler<EditContactNoteCommand, ContactDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public EditContactNoteCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public EditContactNoteCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

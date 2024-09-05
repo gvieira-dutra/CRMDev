@@ -10,8 +10,8 @@ namespace CRMDev.Application.Command.ContactPost
     public class PostContactCommandHandler : IRequestHandler<PostContactCommand, ContactDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public PostContactCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public PostContactCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

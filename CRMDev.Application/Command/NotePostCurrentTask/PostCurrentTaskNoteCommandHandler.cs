@@ -10,8 +10,8 @@ namespace CRMDev.Application.Command.NotePostCurrentTask
     public class PostCurrentTaskNoteCommandHandler : IRequestHandler<PostCurrentTaskNoteCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public PostCurrentTaskNoteCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public PostCurrentTaskNoteCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

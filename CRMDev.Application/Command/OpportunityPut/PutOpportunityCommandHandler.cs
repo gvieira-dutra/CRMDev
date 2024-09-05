@@ -10,9 +10,9 @@ namespace CRMDev.Application.Command.PostOpportunity
     public class PutOpportunityCommandHandler : IRequestHandler<PutOpportunityCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
+        private readonly IHelperFunctions _helper;
 
-        public PutOpportunityCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        public PutOpportunityCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -34,7 +34,7 @@ namespace CRMDev.Application.Command.PostOpportunity
                 request.SupportIncluded
             );
 
-            oppToBeEdited.EditOpportunity(opp);
+            oppToBeEdited?.EditOpportunity(opp);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

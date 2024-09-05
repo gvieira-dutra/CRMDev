@@ -10,8 +10,8 @@ namespace CRMDev.Application.Command.NotePostContactNote
     internal class PostContactNoteCommandHandler : IRequestHandler<PostContactNoteCommand, ContactDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public PostContactNoteCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public PostContactNoteCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -27,6 +27,10 @@ namespace CRMDev.Application.Command.NotePostContactNote
             var newNote = new ContactNote(contact, request.Note);
 
             contact?.AddContactNote(newNote);
+
+            var summary = await _helper.CreateContactNotesSummary(contact.Notes);
+
+            contact.UpdateContactNotesSummary(summary);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

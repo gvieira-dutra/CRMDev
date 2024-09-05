@@ -7,12 +7,12 @@ namespace CRMDev.Application.Command.ContactPut
     public class PutContactCommand : IRequest<ContactDetailVM>
     {
         public int Id { get; set; }
-        public string Name { get; private set; }
-        public string Email { get; private set; }
-        public string Phone { get; private set; }
-        public string CellPhone { get; private set; } 
-        public FieldOrIndustry FieldOrIndustry { get; private set; }
-        public string Position { get; private set; }
-        public string Address { get; private set; } 
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string CellPhone { get; set; } 
+        //public FieldOrIndustry FieldOrIndustry { get; set; }
+        public string Position { get; set; }
+        public string Address { get; set; } 
     }
 }

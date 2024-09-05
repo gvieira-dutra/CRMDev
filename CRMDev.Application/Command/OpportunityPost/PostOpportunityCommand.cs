@@ -1,5 +1,6 @@
 ﻿using CRMDev.Application.ViewModels;
 using MediatR;
+
 namespace CRMDev.Application.Command.PostOpportunity
 {
     public class PostOpportunityCommand : IRequest<OpportunityDetailVM>

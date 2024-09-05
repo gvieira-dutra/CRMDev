@@ -9,9 +9,9 @@ namespace CRMDev.Application.Command.PostOpportunity
     public class PostOpportunityCommandHandler : IRequestHandler<PostOpportunityCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
+        private readonly IHelperFunctions _helper;
 
-        public PostOpportunityCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        public PostOpportunityCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

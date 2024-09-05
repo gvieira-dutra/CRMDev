@@ -8,8 +8,8 @@ namespace CRMDev.Application.Query.FieldGetOne
     public class GetOneFieldCommandHandler : IRequestHandler<GetOneFieldCommand, FieldOrIndustryVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public GetOneFieldCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public GetOneFieldCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

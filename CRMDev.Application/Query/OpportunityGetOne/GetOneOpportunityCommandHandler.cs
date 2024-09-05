@@ -9,9 +9,9 @@ namespace CRMDev.Application.Query.OpportunityGetOne
     public class GetOneOpportunityCommandHandler : IRequestHandler<GetOneOpportunityCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
+        private readonly IHelperFunctions _helper;
 
-        public GetOneOpportunityCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        public GetOneOpportunityCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -23,6 +23,7 @@ namespace CRMDev.Application.Query.OpportunityGetOne
                     .ThenInclude(t => t.Tasks)
                 .Include(c => c.Contact)
                 .SingleOrDefaultAsync(o => o.Id == request.Id, cancellationToken: cancellationToken);
+
 
             return await _helper.CreateOpportunityDetailVM(_dbContext, request.Id);
         }

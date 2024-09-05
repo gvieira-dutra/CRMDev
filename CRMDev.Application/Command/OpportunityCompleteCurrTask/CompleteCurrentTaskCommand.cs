@@ -3,8 +3,8 @@ using MediatR;
 
 namespace CRMDev.Application.Command.OpportunityCompleteCurrTask
 {
-    public class CompleteCurrentTaskCommand : IRequest<OpportunityDetailVM>
+    public class CompleteCurrentTaskCommand(int id) : IRequest<OpportunityDetailVM>
     {
-        public int Id { get; private set; }
+        public int Id { get; private set; } = id;
     }
 }

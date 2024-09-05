@@ -9,9 +9,9 @@ namespace CRMDev.Application.Command.FieldPost
     public class PostFieldCommandHandler : IRequestHandler<PostFieldCommand, FieldOrIndustryVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
+        private readonly IHelperFunctions _helper;
 
-        public PostFieldCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        public PostFieldCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;
@@ -29,7 +29,7 @@ namespace CRMDev.Application.Command.FieldPost
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return await HelperFunctions.CreateFieldOrIndustryVM(_dbContext, field.Id);
+            return await _helper.CreateFieldOrIndustryVM(_dbContext, field.Id);
         }
 
     }

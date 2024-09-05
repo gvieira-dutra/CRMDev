@@ -9,8 +9,8 @@ namespace CRMDev.Application.Command.OpportunityCompleteCurrTask
     public class CompleteCurrentTaskCommandHandler : IRequestHandler<CompleteCurrentTaskCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public CompleteCurrentTaskCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public CompleteCurrentTaskCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

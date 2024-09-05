@@ -9,8 +9,8 @@ namespace CRMDev.Application.Command.OpportunitySetStatusClosed
     public class SetStatusClosedCommandHandler : IRequestHandler<SetStatusClosedCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public SetStatusClosedCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public SetStatusClosedCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

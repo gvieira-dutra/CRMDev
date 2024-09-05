@@ -1,4 +1,5 @@
 ﻿using CRMDev.Core.Entities;
+using System.Text.Json.Serialization;
 
 namespace CRMDev.Application.ViewModels
 {
@@ -13,6 +14,7 @@ namespace CRMDev.Application.ViewModels
         public string Address { get; private set; } = address;
         public string IsActive { get; private set; } = status;
         public string NotesSummary { get; private set; } = notesSummary;
+        //[JsonIgnore]
         public List<ContactNote> Notes { get; private set; } = notes;
     }
 }

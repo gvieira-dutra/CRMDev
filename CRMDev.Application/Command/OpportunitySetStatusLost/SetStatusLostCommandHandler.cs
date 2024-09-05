@@ -9,8 +9,8 @@ namespace CRMDev.Application.Command.OpportunitySetStatusLost
     public class SetStatusLostCommandHandler : IRequestHandler<SetStatusLostCommand, OpportunityDetailVM>
     {
         private readonly CRMDevDbContext _dbContext;
-        private readonly HelperFunctions _helper;
-        public SetStatusLostCommandHandler(CRMDevDbContext dbContext, HelperFunctions helper)
+        private readonly IHelperFunctions _helper;
+        public SetStatusLostCommandHandler(CRMDevDbContext dbContext, IHelperFunctions helper)
         {
             _dbContext = dbContext;
             _helper = helper;

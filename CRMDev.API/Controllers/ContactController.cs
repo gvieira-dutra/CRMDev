@@ -5,6 +5,7 @@ using CRMDev.Application.Query.ContactGetAll;
 using CRMDev.Application.Query.ContactGetOne;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Any;
 
 namespace CRMDev.API.Controllers
 {
@@ -19,47 +20,48 @@ namespace CRMDev.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(GetAllContactQuery command)
+        public async Task<IActionResult> GetAll(GetAllContactQuery command)
         {
-            return Ok(_mediator.Send(command));
+            var contacts = await _mediator.Send(command);
+            return Ok( contacts == null ? NoContent() : contacts);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOne(int id)
+        public async Task<IActionResult> GetOne(int id)
         {
             var command = new GetOneContactQuery();
             command.Id = id;
 
-            var contact = _mediator.Send(command);
+            var contact = await _mediator.Send(command);
 
-            return contact == null ? NotFound() : Ok(contact);
+            return contact == null ? NoContent() : Ok(contact);
         }
 
         [HttpPost("new")]
-        public IActionResult Post([FromBody] PostContactCommand command)
+        public async Task<IActionResult> Post([FromBody] PostContactCommand command)
         {
-            var contact = _mediator.Send(command);
+            var contact = await _mediator.Send(command);
             
-            return contact == null ? NotFound() : Ok(contact);
+            return contact == null ? NoContent() : Ok(contact);
 
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] PutContactCommand command)
+        public async Task<IActionResult> Put(int id, [FromBody] PutContactCommand command)
         {
             command.Id = id;
-            var contact = _mediator.Send(command);
+            var contact = await _mediator.Send(command);
 
-            return contact == null ? NotFound() : Ok(contact);
+            return contact == null ? NoContent() : Ok(contact);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var command = new DeleteContactCommand(id);
 
-            _mediator.Send(command);
-            return NoContent();
+                await _mediator.Send(command);
+                return NoContent();
         }
     }
 }
